@@ -1,14 +1,27 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from "@angular/core";
 
 @Component({
-  selector: 'app-testc',
-  templateUrl: './testc.component.html',
-  styleUrls: ['./testc.component.css']
+  selector: "app-testc",
+  template: `
+    <ng-template
+      #cellTemplate
+      *ngIf="test.cellTemplate"
+      [ngTemplateOutlet]="test.cellTemplate"
+      [ngTemplateOutletContext]="cellContext"
+    >
+    </ng-template>
+  `,
+  styleUrls: ["./testc.component.css"]
 })
 export class TestcComponent implements OnInit {
   @Input() set test(value) {
     this._test = value;
-
   }
 
   get test() {
@@ -16,16 +29,15 @@ export class TestcComponent implements OnInit {
   }
   private _test: any;
 
-  @ViewChild('cellTemplate', { read: ViewContainerRef, static: true })
+  @ViewChild("cellTemplate", { read: ViewContainerRef, static: true })
   cellTemplate: ViewContainerRef;
   cellContext: any = {
-    data: [1,2,3]
+    data: [1, 2, 3]
   };
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    console.log('ghj', this.test)
+    console.log("ghj", this.test);
   }
-
 }
